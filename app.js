@@ -2,9 +2,10 @@ const bangla = document.getElementById("bangla")
 const english = document.getElementById("english")
 const physics = document.getElementById("physics")
 const math = document.getElementById("math")
-const input = document.querySelectorAll(".inputs")
+const input = document.querySelectorAll(".inputs");
 const add_mark = document.getElementById("add_mark");
-
+const newGrade = document.getElementById("grade_point");
+const newPassMark = document.getElementById("pass_mark");
 
 //step no-1
 for(let i = 0; i < input.length; i++){
@@ -17,30 +18,51 @@ for(let i = 0; i < input.length; i++){
         }
     })
 }
+
 //step no-2
 add_mark.addEventListener("click", function(){
     if(bangla.value == "" || english.value == "" || physics.value == "" ||math.value == ""){
         alert("You have to give the value!!");
     }else{
-        alert("That's great!!")
         const newBangla = parseInt(bangla.value);
         const newEnglish = parseInt(english.value);
         const newPhysics = parseInt(physics.value);
         const newMath = parseInt(math.value);
         //total mark
         const newTotalMark = document.getElementById("total_mark")
-
         const totalMarks = newBangla + newEnglish + newPhysics + newMath;
-
        newTotalMark.innerHTML = totalMarks;
        newTotalMark.style.background = "black"
+
        //average mark
        const newAvg = document.getElementById("avg_mark")
        const totalAvg = totalMarks / 4;
        newAvg.innerHTML = totalAvg;
-       newAvg.style.background = "black"
+       newAvg.style.background = "black";
+
+       if(totalAvg >=33 && totalAvg <=100){
+            alert("That's Great!!")
+        }else{
+        alert("You got Anda!!")
+        }
+        //passed
+        for(let grow of input){
+            if(grow.value < 33){
+                newGrade.innerHTML = "F"
+                newPassMark.innerHTML = "You are Failed!!"
+                newPassMark.style.color = "red"
+                newPassMark.style.background = "white"
+                return;
+            }
+            else{
+                newGrade.innerHTML = ""
+                newPassMark.innerHTML = "You are Passed!!"
+                newPassMark.style.color = "green"
+                newPassMark.style.background = "black"
+            }
+        }
+
        //grade point 
-       const newGrade = document.getElementById("grade_point")
        if(totalAvg >= 80 && totalAvg <= 100){
         newGrade.innerHTML = "A+"
        }else if(totalAvg >= 70 && totalAvg <= 79){
@@ -60,17 +82,7 @@ add_mark.addEventListener("click", function(){
            newGrade.innerHTML = "F"
        }
        newGrade.style.background = "black"
-        //passed
-        const newPassMark = document.getElementById("pass_mark");
-        if(totalAvg >= 33){
-            newPassMark.innerHTML = "You are Passed!!"
-            newPassMark.style.color = "green"
-        }
-        else{
-            newPassMark.innerHTML = "You are Failed!!"
-            newPassMark.style.color = "red"
-        }
-
+       
     }
    
 });
